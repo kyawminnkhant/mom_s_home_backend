@@ -16,7 +16,7 @@ class CreateRecipesTable extends Migration
         Schema::create('recipes', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->smallint('readyInMinutes')->unsigned();
+            $table->smallInteger('readyInMinutes')->unsigned();
             $table->string('imageUrl');
             $table->integer('categories_id')->unsigned();
             $table->integer('dish_types_id')->unsigned();
