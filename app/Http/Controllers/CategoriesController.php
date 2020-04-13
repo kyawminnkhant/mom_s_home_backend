@@ -15,6 +15,8 @@ class CategoriesController extends Controller
     public function index()
     {
         //
+        $categories = Categories::orderBy('name', 'ASC')->get();
+        return view('admin.categories.index', compact('categories'));
     }
 
     /**
@@ -25,6 +27,7 @@ class CategoriesController extends Controller
     public function create()
     {
         //
+        return view('admin.categories.create');
     }
 
     /**
@@ -36,6 +39,8 @@ class CategoriesController extends Controller
     public function store(Request $request)
     {
         //
+        Categories::create($request->all());
+        return redirect('/admin/categories');
     }
 
     /**

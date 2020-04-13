@@ -45,6 +45,8 @@ Route::prefix('/admin')->name('admin.')->namespace('Admin')->group(function(){
 Route::group(['prefix' => 'admin', 'middleware' => 'auth:admin'], function () {
 
     Route::resource('/recipes', 'RecipeController');
+    Route::resource('/categories', 'CategoriesController');
+    Route::resource('/types', 'DishTypeController');
     
 
 });

@@ -15,6 +15,8 @@ class DishTypeController extends Controller
     public function index()
     {
         //
+        $dTypes = DishType::orderBy('name', 'ASC')->get();
+        return view('admin.types.index', compact('dTypes'));
     }
 
     /**
@@ -25,6 +27,7 @@ class DishTypeController extends Controller
     public function create()
     {
         //
+        return view('admin.types.create');
     }
 
     /**
@@ -36,6 +39,8 @@ class DishTypeController extends Controller
     public function store(Request $request)
     {
         //
+        DishType::create($request->all());
+        return redirect('/admin/types');
     }
 
     /**

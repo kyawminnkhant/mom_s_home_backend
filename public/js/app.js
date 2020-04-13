@@ -49643,6 +49643,66 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/test.js":
+/*!******************************!*\
+  !*** ./resources/js/test.js ***!
+  \******************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+(function ($) {
+  "use strict"; // Start of use strict
+  // Toggle the side navigation
+
+  $("#sidebarToggle, #sidebarToggleTop").on('click', function (e) {
+    $("body").toggleClass("sidebar-toggled");
+    $(".sidebar").toggleClass("toggled");
+
+    if ($(".sidebar").hasClass("toggled")) {
+      $('.sidebar .collapse').collapse('hide');
+    }
+
+    ;
+  }); // Close any open menu accordions when window is resized below 768px
+
+  $(window).resize(function () {
+    if ($(window).width() < 768) {
+      $('.sidebar .collapse').collapse('hide');
+    }
+
+    ;
+  }); // Prevent the content wrapper from scrolling when the fixed side navigation hovered over
+
+  $('body.fixed-nav .sidebar').on('mousewheel DOMMouseScroll wheel', function (e) {
+    if ($(window).width() > 768) {
+      var e0 = e.originalEvent,
+          delta = e0.wheelDelta || -e0.detail;
+      this.scrollTop += (delta < 0 ? 1 : -1) * 30;
+      e.preventDefault();
+    }
+  }); // Scroll to top button appear
+
+  $(document).on('scroll', function () {
+    var scrollDistance = $(this).scrollTop();
+
+    if (scrollDistance > 100) {
+      $('.scroll-to-top').fadeIn();
+    } else {
+      $('.scroll-to-top').fadeOut();
+    }
+  }); // Smooth scrolling using jQuery easing
+
+  $(document).on('click', 'a.scroll-to-top', function (e) {
+    var $anchor = $(this);
+    $('html, body').stop().animate({
+      scrollTop: $($anchor.attr('href')).offset().top
+    }, 1000, 'easeInOutExpo');
+    e.preventDefault();
+  });
+})(jQuery); // End of use strict
+
+/***/ }),
+
 /***/ "./resources/sass/app.scss":
 /*!*********************************!*\
   !*** ./resources/sass/app.scss ***!
@@ -49655,13 +49715,14 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ 0:
-/*!*************************************************************!*\
-  !*** multi ./resources/js/app.js ./resources/sass/app.scss ***!
-  \*************************************************************/
+/*!************************************************************************************!*\
+  !*** multi ./resources/js/app.js ./resources/js/test.js ./resources/sass/app.scss ***!
+  \************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(/*! /Applications/XAMPP/xamppfiles/htdocs/mom_s_home_backend/resources/js/app.js */"./resources/js/app.js");
+__webpack_require__(/*! /Applications/XAMPP/xamppfiles/htdocs/mom_s_home_backend/resources/js/test.js */"./resources/js/test.js");
 module.exports = __webpack_require__(/*! /Applications/XAMPP/xamppfiles/htdocs/mom_s_home_backend/resources/sass/app.scss */"./resources/sass/app.scss");
 
 

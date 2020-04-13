@@ -15,7 +15,8 @@ class RecipeController extends Controller
     public function index()
     {
         //
-        return view('admin.recipes.index');
+        $recipes = Recipe::orderBy('title', 'ASC')->get();
+        return view('admin.recipes.index', compact('recipes'));
     }
 
     /**
@@ -26,6 +27,7 @@ class RecipeController extends Controller
     public function create()
     {
         //
+        return view('admin.recipes.create');
     }
 
     /**
@@ -37,6 +39,7 @@ class RecipeController extends Controller
     public function store(Request $request)
     {
         //
+        return $request;
     }
 
     /**
