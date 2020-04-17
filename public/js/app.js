@@ -49491,6 +49491,46 @@ module.exports = function(module) {
 
 /***/ }),
 
+/***/ "./resources/js/add-new-component.js":
+/*!*******************************************!*\
+  !*** ./resources/js/add-new-component.js ***!
+  \*******************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+$(document).ready(function () {
+  var max_fields_limit = 50; //set limit for maximum input fields
+
+  var x = 2; //initialize counter for text box
+
+  $('.add_more_button').click(function (e) {
+    //click event on add more fields button having class add_more_button
+    e.preventDefault();
+
+    if (x < max_fields_limit) {
+      //check conditions
+      var ingredient = '<div class="col-sm-4"><select name="ingredients_' + x + '" class="form-control"><option value="">Choose Ingredients</option> @foreach ($ingredients as $ingre)<option value="{{ $ingre->id }}">{{ $ingre->name }}</option>@endforeach</select></div>';
+      var amount = '<div class="col-sm-3"><input type="number" name="amount_' + x + '" class="form-control" placeholder="Enter amount"></div>';
+      var unit = '<div class="col-sm-4"><input type="text" name="unit_' + x + '" class="form-control" placeholder="Enter unit"></div>';
+      x++; //counter increment
+
+      $('.add-new-component').append($('<div class="row">' + ingredient + amount + unit + '<a href="#" class="remove_field" style="margin-left:10px;"><i class="fas fa-times"></i></a></div>')); // $('.add-new-component').append(ingredient);
+      // $('.add-new-component').append(amount);
+      // $('.add-new-component').append(unit);
+      // $('.add-new-component').append($('<a href="#" class="remove_field" style="margin-left:10px;"><i class="fas fa-times"></i></a>')); //add input field
+      // $('.add-new-component').append($('</div>'));
+    }
+  });
+  $('.add-new-component').on("click", ".remove_field", function (e) {
+    //user click on remove text links
+    e.preventDefault();
+    $(this).parent('div').remove();
+    x--;
+  });
+});
+
+/***/ }),
+
 /***/ "./resources/js/app.js":
 /*!*****************************!*\
   !*** ./resources/js/app.js ***!
@@ -49715,14 +49755,15 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ 0:
-/*!************************************************************************************!*\
-  !*** multi ./resources/js/app.js ./resources/js/test.js ./resources/sass/app.scss ***!
-  \************************************************************************************/
+/*!************************************************************************************************************************!*\
+  !*** multi ./resources/js/app.js ./resources/js/test.js ./resources/js/add-new-component.js ./resources/sass/app.scss ***!
+  \************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(/*! /Applications/XAMPP/xamppfiles/htdocs/mom_s_home_backend/resources/js/app.js */"./resources/js/app.js");
 __webpack_require__(/*! /Applications/XAMPP/xamppfiles/htdocs/mom_s_home_backend/resources/js/test.js */"./resources/js/test.js");
+__webpack_require__(/*! /Applications/XAMPP/xamppfiles/htdocs/mom_s_home_backend/resources/js/add-new-component.js */"./resources/js/add-new-component.js");
 module.exports = __webpack_require__(/*! /Applications/XAMPP/xamppfiles/htdocs/mom_s_home_backend/resources/sass/app.scss */"./resources/sass/app.scss");
 
 

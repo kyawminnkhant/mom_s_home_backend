@@ -47,6 +47,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:admin'], function () {
     Route::resource('/recipes', 'RecipeController');
     Route::resource('/categories', 'CategoriesController');
     Route::resource('/types', 'DishTypeController');
+    Route::resource('/ingredients', 'IngredientsController');
+    Route::resource('/ingretypes', 'IngredientsTypesController');
     
 
 });

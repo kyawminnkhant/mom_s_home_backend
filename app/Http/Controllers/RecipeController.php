@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Recipe;
+use App\Categories;
+use App\DishType;
+use App\Ingredients;
 use Illuminate\Http\Request;
 
 class RecipeController extends Controller
@@ -14,7 +17,6 @@ class RecipeController extends Controller
      */
     public function index()
     {
-        //
         $recipes = Recipe::orderBy('title', 'ASC')->get();
         return view('admin.recipes.index', compact('recipes'));
     }
@@ -27,7 +29,10 @@ class RecipeController extends Controller
     public function create()
     {
         //
-        return view('admin.recipes.create');
+        $ingredients = Ingredients::orderBy('name', 'ASC')->get();
+        $types = DishType::pluck('name', 'id')->all();
+        $categories = Categories::pluck('name', 'id')->all();
+        return view('admin.recipes.create', compact('types', 'categories', 'ingredients'));
     }
 
     /**
@@ -39,7 +44,8 @@ class RecipeController extends Controller
     public function store(Request $request)
     {
         //
-        return $request;
+        $data = $request->all();
+        return $data;
     }
 
     /**

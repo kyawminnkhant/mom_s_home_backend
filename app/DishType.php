@@ -11,4 +11,5 @@ class DishType extends Model
     protected $fillable = [
         'name'
     ];
+
 }
