@@ -47,16 +47,22 @@ class RecipeController extends Controller
     {
         //
         $data = $request->all();
-        // $recipe = new Recipe;
-        // $recipe->title = $request->title;
-        // $recipe->readyInMinutes = $request->readyInMinutes;
-        // $recipe->dish_types_id = $request->dish_types_id;
-        // $recipe->totalCosts = $request->totalCosts;
+
+        $this->validate($request, [
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+
+        if($file = $request->file('image')){
+            $profileImage = date('YmdHis') . "." . $file->getClientOriginalExtension();
+            $file->move(public_path()."/images/", $profileImage);
+            $path = '/images/'.$profileImage;
+        }
+  
         
         $recipe_id = Recipe::create([
             'title' => $request->title,
             'readyInMinutes' => $request->readyInMinutes,
-            'imageURL' => $request->title,
+            'imageUrl' => $path,
             'dish_types_id' => $request->dish_types_id,
             'categories_id' => $request->categories_id,
             'totalCosts' => $request->totalCosts,

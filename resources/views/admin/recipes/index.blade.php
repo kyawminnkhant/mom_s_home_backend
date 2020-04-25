@@ -19,6 +19,7 @@
                   <thead>
                     <tr>
                         <th>ID</th>
+                        <th>Image</th>
                         <th>Name</th>
                         <th>Minutes</th>
                         <th>Categories</th>
@@ -33,6 +34,7 @@
                       @foreach ($recipes as $recipe)
                       <tr>
                             <td>{{ $recipe->id }}</td>
+                            <td><img src="{{ asset($recipe->imageUrl) }}" width="240" height="160"></td>
                             <td>{{ $recipe->title }}</td>
                             <td>{{ $recipe->readyInMinutes }} mins</td>
                             <td>{{ $recipe->categories->name}}</td>

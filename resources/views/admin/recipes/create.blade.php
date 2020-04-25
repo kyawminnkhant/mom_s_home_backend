@@ -41,7 +41,7 @@
                                     </div>
 
                                     <div class="col-sm-12 mb-3 mb-sm-0">
-                                        {!! Form::label('image', 'Recipe Photo*', ['style' => 'color:red;']) !!}
+                                        {!! Form::label('image_label', 'Recipe Photo*', ['style' => 'color:red;']) !!}
                                         <br>
                                         {!! Form::file('image') !!}
                                     </div>
