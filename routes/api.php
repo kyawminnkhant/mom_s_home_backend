@@ -38,8 +38,7 @@ Route::group(['prefix' => 'v1'], function () {
     Route::get('/logout', 'UserController@logout')->middleware('auth:api');
 });
 
-Route::group(['middleware' => 'auth:api'], function(){
-    Route::get('test', function() {
-        return 'route with token worked!';
-    });
+Route::group(['middleware' => 'auth:api', 'namespace' => 'API'], function(){
+    Route::get('/recipe/all', 'RecipeApiController@index');
+    
 });
