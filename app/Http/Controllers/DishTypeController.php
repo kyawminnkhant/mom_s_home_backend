@@ -86,5 +86,6 @@ class DishTypeController extends Controller
     public function destroy(DishType $dishType)
     {
         //
+        return 'its working';
     }
 }

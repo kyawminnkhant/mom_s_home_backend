@@ -10,14 +10,19 @@ class Recipe extends Model
     protected $fillable = [
         'title',
         'readyInMinutes',
-        'imageURL',
+        'imageUrl',
         'categories_id',
         'dish_types_id',
         'totalCosts',
 
     ];
 
-    // protected $appends = array('categories');
+    // protected $appends = array('imageUrl');
+
+    // public function getImageUrlAttribute()
+    // {
+    //     return asset('images/' . $this->imageUrl);
+    // }
 
     // public function getCategoriesAttribute($value)
     // {
@@ -52,6 +57,14 @@ class Recipe extends Model
             $data['ingredients'] = null;
         }
 
+        $data['imageUrl'] = asset($data['imageUrl']);
+
+        // if($this->image) {
+        //     $data['image'] = $this->image;
+        // } else {
+        //     $data['image'] = null;
+        // }
+
         return $data;
     }
 
@@ -74,6 +87,11 @@ class Recipe extends Model
     {
         return $this->hasMany('App\RecipesStepsIngredients', 'recipes_id');
     }
+
+    // public function image()
+    // {
+    //     return $this->imageUrl = asset('images/' . $this->imageUrl);
+    // }
 
     
 

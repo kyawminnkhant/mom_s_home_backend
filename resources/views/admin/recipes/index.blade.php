@@ -44,9 +44,14 @@
                               <a href="{{ route('recipes.edit', $recipe->id) }}" class="btn btn-warning">
                                 Edit
                             </a>
-                            <a href="{{ route('recipes.destroy', $recipe->id) }}" class="btn btn-danger">
+                            <form method="POST" action="{{ route("recipes.destroy", $recipe->id) }}" accept-charset="UTF-8">
+                              <input name="_method" type="hidden" value="DELETE">
+                              <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                              <input class="btn btn-danger" onclick="return confirm('Are you sure?')" type="submit" value="Delete">
+                          </form>
+                            {{-- <a onclick="return confirm('Are you sure?')" href="{{ route('recipes.destroy', $recipe->id) }}" class="btn btn-danger">
                                 Delete
-                            </a>
+                            </a> --}}
                             </td>
                           </tr>
                       @endforeach

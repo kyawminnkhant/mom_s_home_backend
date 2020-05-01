@@ -112,6 +112,13 @@ class RecipeController extends Controller
     public function edit(Recipe $recipe)
     {
         //
+        $recipes = Recipe::findOrfail($recipe->id);
+        $types = DishType::pluck('name', 'id')->all();
+        $recipes_steps = RecipesSteps::where('recipes_id', $recipe->id)->first();
+        $categories = Categories::pluck('name', 'id')->all();
+        $ingredients = Ingredients::orderBy('name', 'ASC')->get();
+        $recipes_ingredients = RecipesStepsIngredients::where('recipes_id', $recipe->id)->get();
+        return view('admin.recipes.edit', compact('recipes','types', 'categories', 'ingredients', 'recipes_steps', 'recipes_ingredients'));
     }
 
     /**
@@ -135,5 +142,18 @@ class RecipeController extends Controller
     public function destroy(Recipe $recipe)
     {
         //
+        $recipes_steps = RecipesStepsIngredients::where('recipes_id', $recipe->id)->get();
+        foreach($recipes_steps as $recipes_step){
+            RecipesStepsIngredients::where('id', $recipes_step->id)->delete();
+        }
+        // dd($recipes_steps);
+        RecipesSteps::where('recipes_id', $recipe->id)->delete();
+        Recipe::find($recipe->id)->delete();
+
+        return redirect('admin/recipes');
+        return 'success';
+        // dd($recipe);
+        // return 'this route';
+        
     }
 }
