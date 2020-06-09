@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\API\RecipeApiController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -23,7 +24,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 // ], function () {
 //     Route::post('login', 'AuthController@login');
 //     Route::post('signup', 'AuthController@signup');
-  
+
 //     Route::group([
 //       'middleware' => 'auth:api'
 //     ], function() {
@@ -39,6 +40,9 @@ Route::group(['prefix' => 'v1'], function () {
 });
 
 Route::group(['middleware' => 'auth:api', 'namespace' => 'API', 'prefix' => 'v1'], function(){
-    Route::get('/recipe/all', 'RecipeApiController@index');
-    
+    Route::get('/recipe/all', 'RecipeApiController@lasted');
+    Route::get('/recipes/type/{id}', 'RecipeApiController@getRecipesByTypes');
+    Route::get('/recipe/{id}', 'RecipeApiController@getRecipe');
+    Route::get('/types/all', 'DishTypeApiController@getAllTypes');
+
 });

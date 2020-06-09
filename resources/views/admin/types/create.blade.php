@@ -10,23 +10,25 @@
               <h6 class="m-0 font-weight-bold text-primary">Add New Type</h6>
             </div>
             <div class="card-body">
-                    {!! Form::open(['method'=>'POST', 'action'=>'DishTypeController@store', 'class'=>'user' ]) !!}
+                    {!! Form::open(['method'=>'POST', 'action'=>'DishTypeController@store', 'class'=>'user' , 'files' => 'true']) !!}
                             <div class="form-group row">
 
 
                                     <div class="col-sm-6 mb-3 mb-sm-0">
                                         {!! Form::text('name', null, ['class'=>'form-control form-control-user', 'placeholder'=>'New Type Name', 'id'=>'exampleFirstName']) !!}
                                     </div>
-                                    
+
                                     <div class="col-sm-6 mb-3 mb-sm-0">
-                                       <br>
+                                            {!! Form::label('image_label', 'Dish Type Photo*', ['style' => 'color:red;']) !!}
+                                            <br>
+                                            {!! Form::file('image') !!}
                                     </div>
-                                    
+
 
                                     <div class="col-sm-12 mb-3 mb-sm-0">
                                         <br>
                                     </div>
-                                    
+
                                     <hr>
                                     <div class="col-sm-6 mb-3 mb-sm-0">
                                     {!! Form::submit('Add Now.', ['class'=>'btn btn-primary btn-user btn-block']) !!}

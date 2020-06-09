@@ -25,6 +25,7 @@ class IngredientsTypesController extends Controller
     {
         //
         IngredientsTypes::create($request->all());
+        return redirect('/admin/ingretypes/');
     }
 
 

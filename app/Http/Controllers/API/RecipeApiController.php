@@ -13,10 +13,40 @@ use App\Http\Resources\Recipe as RecipeResource;
 class RecipeApiController extends Controller
 {
     //
-    public function index()
+    public function lasted()
     {
-        $recipes = Recipe::orderBy('updated_at', 'DESC')->get();
+        // $recipes = Recipe::orderBy('updated_at', 'DESC')->take(10)->get();
         // return new RecipeResource($recipes);
+
+        /* ->map(function (variable) add laravel accessor for full image URL) */
+        $recipes = DB::table('recipes')->orderBy('updated_at', 'DESC')->select('id', 'title', 'imageUrl')->get()->map(function ($recipes) {
+            $recipes->imageUrl = asset($recipes->imageUrl);
+            return $recipes;
+        });
         return \Response::json($recipes);
+        // return $recipes(imageUrl);
+    }
+
+    public function getRecipesByTypes($type)
+    {
+        // return $category;
+        // $recipes = Recipe::where('dish_types_id', $type)->get();
+        // $recipes = DB::table('recipes')->orderBy('updated_at', 'DESC');
+        $recipes = DB::table('recipes')->orderBy('updated_at', 'DESC')->where('dish_types_id', $type)->select('id', 'title', 'imageUrl')->get()->map(function ($recipes) {
+            $recipes->imageUrl = asset($recipes->imageUrl);
+            return $recipes;
+        });
+        return \Response::json($recipes);
+    }
+
+    public function getRecipe($recipe_id)
+    {
+        $recipe = Recipe::where('id', $recipe_id)->get();
+        return \Response::json($recipe);
+    }
+
+    public function getRecipesByCategory($type)
+    {
+
     }
 }

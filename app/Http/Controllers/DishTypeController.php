@@ -39,7 +39,24 @@ class DishTypeController extends Controller
     public function store(Request $request)
     {
         //
-        DishType::create($request->all());
+        $this->validate($request, [
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+
+        if($file = $request->file('image')){
+            $profileImage = date('YmdHis') . "." . $file->getClientOriginalExtension();
+            $file->move(public_path()."/images/", $profileImage);
+            $path = '/images/'.$profileImage;
+        }
+
+        DishType::create([
+            'name' => $request->name,
+            'imageUrl' => $path,
+        ]);
+
+        // return $path;
+
+        // DishType::create($request->all());
         return redirect('/admin/types');
     }
 

@@ -9,7 +9,20 @@ class DishType extends Model
 {
     //
     protected $fillable = [
-        'name'
+        'name',
+        'imageUrl'
     ];
+
+
+    public function toArray()
+    {
+        $data = parent::toArray();
+
+        $data['imageUrl'] = asset($data['imageUrl']);
+
+        return $data;
+    }
+
+
 
 }
