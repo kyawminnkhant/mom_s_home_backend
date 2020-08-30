@@ -14,7 +14,12 @@ class Recipe extends Model
         'categories_id',
         'dish_types_id',
         'totalCosts',
+        'is_set_meals',
+        'set_meals_id',
+    ];
 
+    protected $casts = [
+        'is_set_meals' => 'boolean',
     ];
 
     // protected $appends = array('imageUrl');
@@ -32,6 +37,12 @@ class Recipe extends Model
     //     }
     //     return $categories;
     // }
+
+    /**
+     * 
+     * TODO: Add servings size for recipes.
+     * 
+     */
 
     public function toArray()
     {
@@ -58,6 +69,7 @@ class Recipe extends Model
         }
 
         $data['imageUrl'] = asset($data['imageUrl']);
+
 
         // if($this->image) {
         //     $data['image'] = $this->image;
@@ -93,6 +105,5 @@ class Recipe extends Model
     //     return $this->imageUrl = asset('images/' . $this->imageUrl);
     // }
 
-    
 
 }

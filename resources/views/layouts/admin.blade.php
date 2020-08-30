@@ -106,6 +106,12 @@
           <span>Dish Types</span></a>
       </li>
 
+      <li class="nav-item">
+        <a class="nav-link" href="{{ route('setmeals.index') }}">
+          <i class="fas fa-fw fa-chart-area"></i>
+          <span>Set Meals</span></a>
+      </li>
+
       <!-- Nav Item - Utilities Collapse Menu -->
       <li class="nav-item">
         <a class="nav-link collapsed" href="{{ route('types.index') }}" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">

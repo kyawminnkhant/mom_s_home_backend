@@ -39,10 +39,11 @@ Route::group(['prefix' => 'v1'], function () {
     Route::get('/logout', 'UserController@logout')->middleware('auth:api');
 });
 
-Route::group(['middleware' => 'auth:api', 'namespace' => 'API', 'prefix' => 'v1'], function(){
+Route::group(['namespace' => 'API', 'prefix' => 'v1'], function(){
     Route::get('/recipe/all', 'RecipeApiController@lasted');
     Route::get('/recipes/type/{id}', 'RecipeApiController@getRecipesByTypes');
     Route::get('/recipe/{id}', 'RecipeApiController@getRecipe');
     Route::get('/types/all', 'DishTypeApiController@getAllTypes');
-
+    Route::get('/recipes/set/{id}', 'RecipeApiController@getSetMealsRecipe');
+    Route::get('/recipes/randomfeed', 'RecipeApiController@randomFeeds');
 });

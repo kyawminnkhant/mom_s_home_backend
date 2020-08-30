@@ -19,7 +19,7 @@ class RecipeApiController extends Controller
         // return new RecipeResource($recipes);
 
         /* ->map(function (variable) add laravel accessor for full image URL) */
-        $recipes = DB::table('recipes')->orderBy('updated_at', 'DESC')->select('id', 'title', 'imageUrl')->get()->map(function ($recipes) {
+        $recipes = DB::table('recipes')->orderBy('updated_at', 'DESC')->select('id', 'title', 'imageUrl')->paginate()->map(function ($recipes) {
             $recipes->imageUrl = asset($recipes->imageUrl);
             return $recipes;
         });
@@ -45,8 +45,33 @@ class RecipeApiController extends Controller
         return \Response::json($recipe);
     }
 
-    public function getRecipesByCategory($type)
+    public function getSetMealsRecipe($set_meals_id)
     {
+        $recipes = DB::table('recipes')->orderBy('updated_at', 'DESC')->where('set_meals_id', $set_meals_id)->select('id', 'title', 'imageUrl')->get()->map(function ($recipes) {
+            $recipes->imageUrl = asset($recipes->imageUrl);
+            return $recipes;
+        });
+        return \Response::json($recipes);
 
     }
+
+    /**
+     *
+     *
+     * TODO: randomize the results from the database.
+     *
+     */
+
+    public function randomFeeds()
+    {
+    $recipes = DB::table('recipes')->select('id', 'title', 'imageUrl')->inRandomOrder()->limit(10)->get()->map(function ($recipes) {
+        $recipes->imageUrl = asset($recipes->imageUrl);
+        return $recipes;
+    });
+    return \Response::json($recipes);
+
+    }
+
+
+
 }

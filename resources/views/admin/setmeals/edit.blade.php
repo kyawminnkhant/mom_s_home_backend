@@ -11,37 +11,29 @@
               <h6 class="m-0 font-weight-bold text-primary">Add New Recipe</h6>
             </div>
             <div class="card-body">
-                    {!! Form::open(['method'=>'POST', 'action'=>'RecipeController@store', 'class'=>'user', 'files' => 'true' ]) !!}
+                {!! Form::model($recipes,['method'=>'PATCH', 'action'=> ['RecipeController@update', $recipes->id], 'files'=>true]) !!}
                             <div class="form-group row">
 
                                 <div class="col-sm-12 mb-3 mb-sm-0">
                                     {!! Form::label('title', 'Recipe Information*', ['style' => 'color:red;']) !!}
                                 </div>
-
+                                
 
                                     <div class="col-sm-6 mb-3 mb-sm-0">
                                         {!! Form::text('title', null, ['class'=>'form-control form-control-user', 'placeholder'=>'New Recipe Name', 'id'=>'exampleFirstName']) !!}
                                     </div>
-
-                                    <div class="col-sm-3 mb-3 mb-sm-0">
-                                        <select name="isSetMeals" id="setMeals"><option value="">Is Set Meals?</option><option value="0">No</option><option value="1">Yes</option></select>
-                                    </div>
-
-                                    <div class="col-sm-3 mb-3 mb-sm-0">
-                                        {!! Form::select('set_meals_id', array(''=>'Choose Set') + $sets, null , ['class'=>'form-control form-control-user', 'id'=>'setMealsSelect']) !!}
-                                    </div>
-
+                                    
                                     <div class="col-sm-12 mb-3 mb-sm-0">
                                         <br>
                                     </div>
-
+                            
                                     <div class="col-sm-6">
                                             {!! Form::number('totalCosts', null, ['class' => 'form-control form-control-user', 'placeholder' => 'Total costs']) !!}
                                     </div>
 
                                     <div class="col-sm-6">
-                                        {!! Form::number('readyInMinutes', null, ['class'=>'form-control form-control-user', 'placeholder'=>'Total time', 'id'=>'exampleFirstName']) !!}
-
+                                        {!! Form::number('readyInMinutes', null, ['class'=>'form-control form-control-user', 'placeholder'=>'Total time', 'id'=>'exampleFirstName']) !!}            
+                                        
                                     </div>
 
                                     <div class="col-sm-12 mb-3 mb-sm-0">
@@ -58,7 +50,7 @@
                                         <hr>
                                     </div>
 
-
+                                    
 
                                     <div class="col-sm-6">
                                         {!! Form::select('categories_id', array(''=>'Choose Category') + $categories, null , ['class'=>'form-control form-control-user', 'id'=>'exampleFirstName']) !!}
@@ -72,11 +64,11 @@
                                        <br>
                                     </div>
 
-
+                                    
 
                                     <div class="col-sm-12">
                                         {!! Form::label('instructions', 'Instructions*', ['style' => 'color:red']) !!}
-                                        {!! Form::textarea('instructions', null, ['class'=>'form-control', 'placeholder'=>'Write instructions.', 'id'=>'exampleFirstName', 'row'=> 5]) !!}
+                                        {!! Form::textarea('instructions', $recipes_steps->instructions, ['class'=>'form-control', 'placeholder'=>'Write instructions.', 'id'=>'exampleFirstName', 'row'=> 5]) !!}
                                     </div>
 
                                     <div class="col-sm-12 mb-3 mb-sm-0">
@@ -85,38 +77,38 @@
 
                                     <div class="col-sm-12">
                                         {!! Form::label('instructions', 'Ingredients List*', ['style' => 'color:red']) !!}
-
+                                        
                                     </div>
 
-
-
+                                    {{ $recipes_ingredients }}
+                            
                                     <div class="col-sm-4">
                                     <select name="ingredients[1]" class="form-control"><option value="">Choose Ingredients</option> @foreach ($ingredients as $ingre)<option value="{{ $ingre->id }}">{{ $ingre->name }}</option>@endforeach</select>
                                     </div>
 
                                     <div class="col-sm-3">
-                                        {!! Form::number('amount[1]', null, ['class'=>'form-control', 'placeholder'=>'Enter amount', 'id'=>'exampleFirstName']) !!}
+                                        {!! Form::number('amount[1]', null, ['class'=>'form-control', 'placeholder'=>'Enter amount', 'id'=>'exampleFirstName']) !!}            
                                     </div>
 
                                     <div class="col-sm-4">
-                                        {!! Form::text('unit[1]', null, ['class'=>'form-control', 'placeholder'=>'Enter Unit', 'id'=>'exampleFirstName']) !!}
-
+                                        {!! Form::text('unit[1]', null, ['class'=>'form-control', 'placeholder'=>'Enter Unit', 'id'=>'exampleFirstName']) !!}            
+                                      
                                     </div>
 
                                     <div class="card-body">
 
                                     <div class="form-group add-new-component">
-
+                                        
                                     </div>
                                 </div>
-
+                                    
                                     <div class="col-sm-12">
                                         <button class="btn btn-warning btn-user btn-block add_more_button">Create</button>
                                     </div>
 
-
-
-
+                                    
+                                    
+                                    
 
 
                                     <div class="col-sm-12">
@@ -142,11 +134,11 @@
 @endsection
 
 @section('footer')
-<script>
+{{-- <script>
 $(document).ready(function() {
     var max_fields_limit = 50; //set limit for maximum input fields
     var x = 2; //initialize counter for text box
-
+    
     $('.add_more_button').click(function(e){ //click event on add more fields button having class add_more_button
     e.preventDefault();
     if(x < max_fields_limit){ //check conditions
@@ -156,24 +148,12 @@ $(document).ready(function() {
     x++; //counter increment
     $('.add-new-component').append($('<div class="row" style="margin-top:10px;">'+ingredient+amount+unit+'<a href="#" class="remove_field" style="margin-left:10px;"><i class="fas fa-times" style="color:red;"></i></a></div>'));
     }
-    });
+    }); 
     $('.add-new-component').on("click",".remove_field", function(e){ //user click on remove text links
     e.preventDefault(); $(this).parent('div').remove(); x--;
     })
     });
-
-
-$(function () {
-    $("#setMeals").change(function() {
-        var val = $(this).val();
-        if(val == 1) {
-            $("#setMealsSelect").show();
-        } else {
-            $("#setMealsSelect").hide();
-        }
-    })
-})
-
-</script>
-
+    
+</script> --}}
+    
 @endsection

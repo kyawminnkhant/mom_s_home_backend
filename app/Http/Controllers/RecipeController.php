@@ -8,6 +8,7 @@ use App\DishType;
 use App\Ingredients;
 use App\RecipesSteps;
 use App\RecipesStepsIngredients;
+use App\SetMeal;
 use Illuminate\Http\Request;
 
 class RecipeController extends Controller
@@ -32,9 +33,10 @@ class RecipeController extends Controller
     {
         //
         $ingredients = Ingredients::orderBy('name', 'ASC')->get();
+        $sets = SetMeal::pluck('name', 'id')->all();
         $types = DishType::pluck('name', 'id')->all();
         $categories = Categories::pluck('name', 'id')->all();
-        return view('admin.recipes.create', compact('types', 'categories', 'ingredients'));
+        return view('admin.recipes.create', compact('types', 'categories', 'ingredients', 'sets'));
     }
 
     /**
@@ -57,8 +59,21 @@ class RecipeController extends Controller
             $file->move(public_path()."/images/", $profileImage);
             $path = '/images/'.$profileImage;
         }
-  
-        
+
+
+        if($request->isSetMeals == 1) {
+            $recipe_id = Recipe::create([
+                'title' => $request->title,
+                'readyInMinutes' => $request->readyInMinutes,
+                'imageUrl' => $path,
+                'dish_types_id' => $request->dish_types_id,
+                'categories_id' => $request->categories_id,
+                'totalCosts' => $request->totalCosts,
+                'is_set_meals' => $request->isSetMeals,
+                'set_meals_id' => $request->set_meals_id,
+            ]);
+        } else {
+
         $recipe_id = Recipe::create([
             'title' => $request->title,
             'readyInMinutes' => $request->readyInMinutes,
@@ -66,7 +81,10 @@ class RecipeController extends Controller
             'dish_types_id' => $request->dish_types_id,
             'categories_id' => $request->categories_id,
             'totalCosts' => $request->totalCosts,
+            'is_set_meals' => $request->isSetMeals,
+            'set_meals_id' => null,
         ]);
+        }
 
         $recipe_steps_id = RecipesSteps::create([
             'recipes_id' => $recipe_id->id,
@@ -75,7 +93,7 @@ class RecipeController extends Controller
 
 
 
-        
+
         $ingredients;
         for($i=1; $i<= count($data['ingredients']); $i++){
             if(empty($data['ingredients'][$i]) || !is_numeric($data['ingredients'][$i])) continue;
@@ -154,6 +172,6 @@ class RecipeController extends Controller
         return 'success';
         // dd($recipe);
         // return 'this route';
-        
+
     }
 }
