@@ -40,10 +40,11 @@ Route::prefix('/admin')->name('admin.')->namespace('Admin')->group(function(){
 
     });
     // Route::get('/dashboard','HomeController@index')->name('home')->middleware('auth:admin');
-    // Route::get('/dashboard','HomeController@index')->name('home');
+    Route::get('/dashboard','HomeController@index')->name('home');
 });
 
-Route::get('/dashboard','HomeController@index')->name('home');
+Route::group(['prefix' => 'admin'], function () {
+
     Route::resource('/recipes', 'RecipeController');
     Route::resource('/categories', 'CategoriesController');
     Route::resource('/types', 'DishTypeController');
@@ -51,6 +52,8 @@ Route::get('/dashboard','HomeController@index')->name('home');
     Route::resource('/ingretypes', 'IngredientsTypesController');
     Route::resource('/setmeals', 'SetMealController');
 
+
+});
 
 
 // Route::group(['prefix' => 'admin', 'middleware' => 'auth:admin'], function () {
