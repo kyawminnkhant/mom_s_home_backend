@@ -73,6 +73,12 @@
                                     </div>
 
 
+                                    <div class="col-sm-12">
+                                        {!! Form::label('descriptions', 'Descriptions*', ['style' => 'color:red']) !!}
+                                        {!! Form::textarea('descriptions', null, ['class'=>'form-control', 'placeholder'=>'Write descriptions.', 'id'=>'exampleFirstName', 'row'=> 3]) !!}
+                                    </div>
+
+
 
                                     <div class="col-sm-12">
                                         {!! Form::label('instructions', 'Instructions*', ['style' => 'color:red']) !!}

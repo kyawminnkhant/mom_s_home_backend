@@ -14,6 +14,7 @@ class Recipe extends Model
         'categories_id',
         'dish_types_id',
         'totalCosts',
+        'description',
         'is_set_meals',
         'set_meals_id',
     ];
@@ -39,9 +40,9 @@ class Recipe extends Model
     // }
 
     /**
-     * 
+     *
      * TODO: Add servings size for recipes.
-     * 
+     *
      */
 
     public function toArray()

@@ -19,7 +19,7 @@ class RecipeApiController extends Controller
         // return new RecipeResource($recipes);
 
         /* ->map(function (variable) add laravel accessor for full image URL) */
-        $recipes = DB::table('recipes')->orderBy('updated_at', 'DESC')->select('id', 'title', 'imageUrl')->paginate()->map(function ($recipes) {
+        $recipes = DB::table('recipes')->orderBy('updated_at', 'DESC')->select('id', 'title', 'imageUrl', 'description')->paginate()->map(function ($recipes) {
             $recipes->imageUrl = asset($recipes->imageUrl);
             return $recipes;
         });
@@ -64,7 +64,7 @@ class RecipeApiController extends Controller
 
     public function randomFeeds()
     {
-    $recipes = DB::table('recipes')->select('id', 'title', 'imageUrl')->inRandomOrder()->limit(10)->get()->map(function ($recipes) {
+    $recipes = DB::table('recipes')->select('id', 'title', 'imageUrl', 'description')->inRandomOrder()->limit(30)->get()->map(function ($recipes) {
         $recipes->imageUrl = asset($recipes->imageUrl);
         return $recipes;
     });
