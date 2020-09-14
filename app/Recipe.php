@@ -15,6 +15,7 @@ class Recipe extends Model
         'dish_types_id',
         'totalCosts',
         'description',
+        'serving',
         'is_set_meals',
         'set_meals_id',
     ];

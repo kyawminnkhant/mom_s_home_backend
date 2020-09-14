@@ -70,6 +70,7 @@ class RecipeController extends Controller
                 'categories_id' => $request->categories_id,
                 'totalCosts' => $request->totalCosts,
                 'description' => $request->descriptions,
+                'serving' => $request->serving,
                 'is_set_meals' => $request->isSetMeals,
                 'set_meals_id' => $request->set_meals_id,
             ]);
@@ -83,6 +84,7 @@ class RecipeController extends Controller
             'categories_id' => $request->categories_id,
             'totalCosts' => $request->totalCosts,
             'description' => $request->descriptions,
+            'serving' => $request->serving,
             'is_set_meals' => $request->isSetMeals,
             'set_meals_id' => null,
         ]);

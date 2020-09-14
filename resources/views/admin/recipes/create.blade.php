@@ -45,6 +45,15 @@
                                     </div>
 
                                     <div class="col-sm-12 mb-3 mb-sm-0">
+                                        <br>
+                                    </div>
+
+                                    <div class="col-sm-6">
+                                        {!! Form::text('serving', null, ['class'=>'form-control form-control-user', 'placeholder'=>'Exmaple : for 3 servings', 'id'=>'exampleFirstName']) !!}
+
+                                    </div>
+
+                                    <div class="col-sm-12 mb-3 mb-sm-0">
                                         <hr>
                                     </div>
 
